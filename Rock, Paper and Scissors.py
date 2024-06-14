@@ -1,44 +1,29 @@
-import random
+from kivy.app import App
+from kivy.uix.button import Button
+from kivy.uix.floatlayout import FloatLayout
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.textinput import TextInput
 
-ch= ("Scissors", "Rock", "Paper")
-computer = random.choice(ch)
-option = 10
-win = 0
+class MyApp(App):
+    def build(self):
+        self.options = ['Scissor', 'Paper', 'Rock']
+        main_layout = BoxLayout(orientation = "horizontal")
 
-while option > 0:
-    human = input("Enter your choice ")
-    if human == computer:
-        print("Tie!!")
-        option=-1 
+        main_layout.add_widget(TextInput(background_color="blue", size= (70, 100)))
+        
+        layout = FloatLayout()
+        layout.add_widget(main_layout)
+        button_size = (100, 60)  # Define the size of the buttons
+        
+        Scissor_but = Button(text="Scissor", font_size=20, size_hint=(None, None), size=button_size, pos_hint={'center_x': 0.3, 'center_y': 0.5})  # Centered horizontally, 60% from bottom
+        Paper_but = Button(text="Paper", font_size=20, size_hint=(None, None), size=button_size, pos_hint={'center_x': 0.5, 'center_y': 0.5})  # Centered
+        Rock_but = Button(text="Rock", font_size=20, size_hint=(None, None), size=button_size, pos_hint={'center_x': 0.7, 'center_y': 0.5})  # Centered horizontally, 40% from top
 
-    
-    elif computer == "Paper":
-        if human == "Scissors":
-            print("^^^^^ You win ^^^^^")
-            win=+1
-            option=-1 
-        else:
-            print("_____ Your lose ______")
-            option=-1 
+        layout.add_widget(Scissor_but)
+        layout.add_widget(Paper_but)
+        layout.add_widget(Rock_but)
 
+        return layout
 
-    elif computer == "rock":
-        if human == "Paper":
-            print("^^^^^ You win ^^^^^")
-            option=-1 
-            win=+1
-        else:
-           print("_____ Your lose ______")
-           option=-1 
-
-
-    elif computer == "Scissors":
-        if human == "Rock":
-              print("^^^^^ You win ^^^^^")
-              option=-1 
-              win=+1
-        else:
-             print("_____ Your lose ______")
-             option=-1 
-    if win == 10:
-        print("You won")
+if __name__ == '__main__':
+    MyApp().run()
